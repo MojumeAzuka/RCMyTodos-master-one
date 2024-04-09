@@ -4,8 +4,8 @@ import UIKit
 
 class TodoListViewController: UITableViewController {
     
-    //itemArray is an array of strings that wil be used to populate the tableview cells
-    let itemArray = ["Learn Swift programming", "Learn UIKit", "Make mini UIKit project", "Learn SwiftUI", "Make mini SwiftUI project"]
+    //itemArray is an mutable array of strings that wil be used to populate the tableview cells
+    var itemArray = ["Learn Swift programming", "Learn UIKit", "Make mini UIKit project", "Learn SwiftUI", "Make mini SwiftUI project"]
     
     //
     override func viewDidLoad() {
@@ -46,16 +46,23 @@ class TodoListViewController: UITableViewController {
     }
     // MARK - ADD NEW ITEMS
     
-//addButtonPressed includes functionality for adding items to the list
+//addButtonPressed is a UIBarButtonItem. Its function is adding items to the list.
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         
         var textField = UITextField()
         
-        let alert = UIAlertController(title: "Add New RCMyTodos Item", message: "", preferredStyle: .alert)
+        //alert is a popup that has a title of "Add New Todo Item"
+        let alert = UIAlertController(title: "Add New Todo Item", message: "", preferredStyle: .alert)
         
+        //action is what will happen once the user clicks the add item button on our UIAlert
         let action = UIAlertAction(title: "Add Item", style: .default){(action) in
-            //what will happen once the user clicks the add item button on our UIAlert
-            print("Success")
+          
+            
+            //This appends a new element to the itemArray array
+            self.itemArray.append(textField.text!)
+            
+            //reloadData reloads the info that is shown
+            self.tableView.reloadData()
         }
         alert.addTextField { (alertTextField) in
             alertTextField.placeholder = "Create new item"
